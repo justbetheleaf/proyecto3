@@ -1,3 +1,5 @@
+""" Curva de Levy C"""
+
 from turtle import *
 import time
 
