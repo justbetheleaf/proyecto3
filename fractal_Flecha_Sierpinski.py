@@ -8,7 +8,7 @@ class Flecha_Sierpinski:  # Clase principal
     
     def __init__(self):  # Constructor de la clase
         self.iteraciones = 0  # Propiedades
-        self.tam = 1
+        self.tamano = 3
 
     def set_iteraciones(self, iteraciones):  # Para cambiar la cantidad de iteraciones
         if type(iteraciones) != int or iteraciones < 0:
@@ -18,16 +18,16 @@ class Flecha_Sierpinski:  # Clase principal
     def get_iteraciones(self):  # Devuelve la cantidad de iteraciones
         return self.iteraciones
 
-    def set_tam(self, tam):  # Cambia el tamaño de la forma
-        if type(tam) != int or tam <= 0:
+    def set_tamano (self, tamano):  # Cambia el tamaño de la forma
+        if type(tamano ) != int or tamano <= 0:
             raise ValueError("El tamaño debe ser un entero positivo.")
-        self.tam = tam
+        self.tamano = tamano 
 
-    def get_tam(self):  # Devuelve el tamaño actualizado
-        return self.tam
+    def get_tamano (self):  # Devuelve el tamaño actualizado
+        return self.tamano 
 
     def generar_lista(self):
-        lista = ['D', 'D']  # Inicializa con la curva más simple [D, D]
+        lista = ['D', 'D']  
         for _ in range(self.iteraciones):
             nuevaLista = []
             direccion = 'I' if lista[0] == 'D' else 'D'  # Determina la dirección inicial
@@ -40,23 +40,24 @@ class Flecha_Sierpinski:  # Clase principal
 
     def dibujar_curva(self, lista):
         for instruccion in lista:
-            forward(self.tam)
+            forward(self.tamano )
             if instruccion == 'D':
                 right(60)  # Ángulo de 60 grados a la derecha
             elif instruccion == 'I':
                 left(60)   # Ángulo de 60 grados a la izquierda
 
-    def curvaSierpinski_grafico(self):  # Corregido la indentación aquí
-        tracer(0, 0)
-        reset()
-        hideturtle()
-        pensize(2)
-        colormode(255)
-        bgcolor(0, 0, 0)
-        penup()
-        home()
-        pendown()
-        pencolor(255, 255, 255)
+    def curvaSierpinski_grafico(self):  
+        tracer(0, 0)  #desactiva la animación
+        reset()   # reinicia la ventana 
+        hideturtle()  # oculta el cursos (turtle) 
+        pensize(2) #grueso de linea
+        colormode(255)  # modo de color 
+        bgcolor(0, 0, 0) #el fondo de la ventana(negro)
+        penup() #el dibujo no dejarán una marca en la ventana de dibujo cuando se mueva la tortuga
+        home() #mueve la tortuga a su posición de inicio (0, 0) 
+        left(60)
+        pendown() #o que permite que las instrucciones de dibujo dejen una marca en la ventana
+        pencolor(255, 255, 255) #color del lápiz de dibujo en (blanco)
         lista_instrucciones = self.generar_lista()
         self.dibujar_curva(lista_instrucciones)
         update()
