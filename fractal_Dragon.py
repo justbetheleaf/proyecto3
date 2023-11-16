@@ -7,7 +7,7 @@ import random
 class DragonCurve:
     def __init__(self):
         self.iteraciones = 13
-        self.tam = 3
+        self.tamano = 3
 
     def set_iteraciones(self, iteraciones):
         if type(iteraciones) != int or iteraciones < 0:
@@ -17,13 +17,13 @@ class DragonCurve:
     def get_iteraciones(self):
         return self.iteraciones
 
-    def set_tam(self, tam):
-        if type(tam) != int or tam <= 0:
+    def set_tamano(self, tamano):
+        if type(tamano) != int or tamano <= 0:
             raise ValueError("El tamaño debe ser un entero positivo.")
-        self.tam = tam
+        self.tamano = tamano
 
-    def get_tam(self):
-        return self.tam
+    def get_tamano(self):
+        return self.tamano
 
     def alterar_color(self, incremento):
         colores = pencolor()
@@ -41,12 +41,12 @@ class DragonCurve:
 
     def dibujar_curva(self):
         for instruccion in self.lista:
-            forward(self.tam)
+            forward(self.tamano)
             if instruccion == "D":
                 right(90)
             else:
                 left(90)
-        forward(self.tam)
+        forward(self.tamano)
 
     def curva_dragon(self):
         tracer(0, 0)
