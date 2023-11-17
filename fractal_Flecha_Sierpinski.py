@@ -24,17 +24,19 @@ class Flecha_Sierpinski:  # Clase principal
         self.tamano = tamano 
 
     def get_tamano (self):  # Devuelve el tamaño actualizado
-        return self.tamano 
-
+        return self.tamano     
+    
     def generar_lista(self):
         lista = ['D', 'D']  
         for _ in range(self.iteraciones):
             nuevaLista = []
-            direccion = 'I' if lista[0] == 'D' else 'D'  # Determina la dirección inicial
+            direccionAnterior = 'I' if lista[0] == 'D' else 'D'  # Determina la dirección inicial
+            nuevaLista.extend([direccionAnterior, direccionAnterior])
             for i, elemento in enumerate(lista):
-                nuevaLista.extend([direccion, direccion])
                 nuevaLista.append(elemento)
-                direccion = 'D' if direccion == 'I' else 'I'
+                direccion = 'I' if direccionAnterior == 'D' else 'D'  # Determina la dirección inicial
+                nuevaLista.extend([direccion, direccion])
+                direccionAnterior = direccion
             lista = nuevaLista
         return lista
 
@@ -55,7 +57,7 @@ class Flecha_Sierpinski:  # Clase principal
         bgcolor(0, 0, 0) #el fondo de la ventana(negro)
         penup() #el dibujo no dejarán una marca en la ventana de dibujo cuando se mueva la tortuga
         home() #mueve la tortuga a su posición de inicio (0, 0) 
-        left(60)
+        left(180)
         pendown() #o que permite que las instrucciones de dibujo dejen una marca en la ventana
         pencolor(255, 255, 255) #color del lápiz de dibujo en (blanco)
         lista_instrucciones = self.generar_lista()
