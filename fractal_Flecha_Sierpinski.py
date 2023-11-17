@@ -66,7 +66,10 @@ class Flecha_Sierpinski:  # Clase principal
 
 if __name__ == "__main__":
     sierpinski_main = Flecha_Sierpinski()  # Creando una instancia de la nueva clase
-    sierpinski_main.set_iteraciones(8)  # Configurando las iteraciones
+    sierpinski_main.set_iteraciones(5)  # Configurando las iteraciones
     sierpinski_main.curvaSierpinski_grafico()  # Llamada a la función para dibujar la curva
     time.sleep(5)
     done()
+
+
+
