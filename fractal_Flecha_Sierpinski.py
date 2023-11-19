@@ -1,6 +1,4 @@
 """ Curva de punta de flecha Sierpinski """
-
-
 from turtle import *
 import time
 
