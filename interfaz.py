@@ -167,8 +167,8 @@ class GraficadorFractales:
 
                 constructor_dragon_curve.construir_y_dibujar()
 
-            # Espera 5 segundos
-            time.sleep(1)
+            # Espera 3 segundos
+            time.sleep(3)
             
             respuesta = messagebox.askyesno("Continuar", "¿Desea graficar otro fractal?")
             
