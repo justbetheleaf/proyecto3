@@ -197,37 +197,6 @@ class ConstructorFiguras:
         self.figura.generar_lista()
         self.figura.dibujar_curva()
 
-if __name__ == "__main__":
-    
-    curva_levy = CurvaLecyC(4, 10)
-    flecha_sierpinski = FlechaSierpinski(4, 10) # Recuerde que estos valores se pueden modificar 
-    koch = Koch(4, 10)
-    gosper = Gosper(4, 10)
-    dragon_curve = DragonCurve(4, 10)
 
-    constructor_curva_levy = ConstructorFiguras(curva_levy)
-    constructor_flecha_sierpinski = ConstructorFiguras(flecha_sierpinski)
-    constructor_koch = ConstructorFiguras(koch)
-    constructor_gosper = ConstructorFiguras(gosper)
-    constructor_dragon_curve = ConstructorFiguras(dragon_curve)
-
-    """No se pueden ejecutar todos al mismo tiempo pero dependen cuando se llamen"""
-    
-    #constructor_curva_levy.construir_y_dibujar()
-    #time.sleep(5)
-
-    #constructor_flecha_sierpinski.construir_y_dibujar()
-    #time.sleep(5)
-
-    #constructor_koch.construir_y_dibujar()
-    #time.sleep(5)
-
-    #constructor_dragon_curve.construir_y_dibujar()
-    #time.sleep(5)
-
-    constructor_gosper.construir_y_dibujar()
-    time.sleep(5)
-
-    done()
 
 
