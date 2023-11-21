@@ -1,65 +1,25 @@
 from turtle import *
+from Clases_Fractales import Fractal
 
-class CopoDeNieveKoch:
-    def __init__(self):
-        self.iteraciones = 0
-        self.tamano = 8
-
-    def set_iteraciones(self, iteraciones):
-        if type(iteraciones) != int or iteraciones < 0:
-            raise ValueError("Las iteraciones deben ser un entero no negativo.")
-        self.iteraciones = iteraciones
-
-    def set_tamano(self, tamano):
-        if type(tamano) != int or tamano <= 0:
-            raise ValueError("El tamaño debe ser un entero positivo.")
-        self.tamano = tamano
-
-    def generar_instrucciones(self):
-        instrucciones = ['F']
-
-        for _ in range(self.iteraciones):
-            nuevas_instrucciones = []
-
-            for instruccion in instrucciones:
-                if instruccion == 'F':
-                    nuevas_instrucciones.extend(['F', '-', 'F', '+', '+', 'F', '-', 'F'])
+class Koch(Fractal):
+    def generar_lista(self):
+        lista = ['F']
+        for _ in range(self.get_iteraciones()):
+            nueva_lista = []
+            for elemento in lista:
+                if elemento == 'F':
+                    nueva_lista.extend(['F', '-', 'F', '+', '+', 'F', '-', 'F'])
                 else:
-                    nuevas_instrucciones.append(instruccion)
+                    nueva_lista.append(elemento)
+            lista = nueva_lista
+        return lista
 
-            instrucciones = nuevas_instrucciones
-
-        return instrucciones
-
-    def dibujar_curva(self, instrucciones):
-        for instruccion in instrucciones:
-            if instruccion == 'F':
-                forward(self.tamano)
-            elif instruccion == '+':
+    def dibujar_curva(self):
+        lista = self.generar_lista()
+        for elemento in lista:
+            if elemento == 'F':
+                forward(self.get_tamano())
+            elif elemento == '+':
                 left(60)
-            elif instruccion == '-':
+            elif elemento == '-':
                 right(60)
-
-def main():
-    ventana = Screen()
-    ventana.bgcolor("white")
-
-    tortuga = Turtle()
-    
-    tortuga.speed(0)
-    tortuga.color("blue")
-
-    copo_nieve = CopoDeNieveKoch()
-    copo_nieve.set_iteraciones(10)  # Puedes ajustar el número de iteraciones aquí
-    copo_nieve.set_tamano(6)
-
-    instrucciones = copo_nieve.generar_instrucciones()
-    copo_nieve.dibujar_curva(instrucciones)
-
-    ventana.exitonclick()
-
-if __name__ == "__main__":
-    main()
-
-
-

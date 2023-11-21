@@ -1,6 +1,11 @@
 import tkinter as tk
 from tkinter import ttk, messagebox, simpledialog
 from Clases_Fractales import *
+from fractal_LevyC import *
+from fractal_Koch import *
+from fractal_Dragon import *
+from fractal_Gosper import *
+from fractal_Flecha_Sierpinski import *
 import turtle
 import time  
 
@@ -124,6 +129,9 @@ class GraficadorFractales:
                 # Configuración gráfica adicional para CurvaLecyC
                 turtle.pencolor("blue")
                 turtle.pensize(2)
+                turtle.penup()
+                turtle.goto(-100,0)
+                turtle.pendown()
 
                 constructor_curva_levy.construir_y_dibujar()
 
@@ -134,16 +142,24 @@ class GraficadorFractales:
                 # Configuración gráfica adicional para FlechaSierpinski
                 turtle.pencolor("green")
                 turtle.pensize(2)
+                turtle.penup()
+                turtle.goto(100,-100)
+                turtle.pendown()
+                turtle.left(180)
 
                 constructor_flecha_sierpinski.construir_y_dibujar()
 
             elif tipo_fractal == "Koch":
-                koch = Koch(num_iteraciones, 10)
+                koch = Koch(num_iteraciones, 12)
                 constructor_koch = ConstructorFiguras(koch)
 
                 # Configuración gráfica adicional para Koch
                 turtle.pencolor("red")
                 turtle.pensize(2)
+                turtle.penup()
+                turtle.goto(100,0)
+                turtle.pendown()
+                turtle.left(180)
 
                 constructor_koch.construir_y_dibujar()
 
@@ -154,6 +170,9 @@ class GraficadorFractales:
                 # Configuración gráfica adicional para Gosper
                 turtle.pencolor("purple")
                 turtle.pensize(2)
+                turtle.penup()
+                turtle.goto(-100,0)
+                turtle.pendown()
 
                 constructor_gosper.construir_y_dibujar()
 
@@ -174,7 +193,10 @@ class GraficadorFractales:
             
             if respuesta:
                 # Restablece la posición de la tortuga al centro
+                turtle.reset()
+                turtle.penup()
                 turtle.goto(0, 0)
+                turtle.pendown()
                 # Borra lo graficado en la ventana Turtle
                 turtle.clear()
                 return
