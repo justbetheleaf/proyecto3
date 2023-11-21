@@ -1,5 +1,7 @@
 import tkinter as tk
-from tkinter import ttk, messagebox, simpledialog
+from tkinter import ttk, messagebox
+import turtle
+import time
 from fractal import *
 from fractal_LevyC import *
 from fractal_Koch import *
@@ -7,51 +9,39 @@ from fractal_Dragon import *
 from fractal_Gosper import *
 from fractal_Flecha_Sierpinski import *
 from constructor import *
-import turtle
-import time  
 
 class SistemaVentanas:
     def __init__(self, master):
         self.master = master
         master.title("Sistema de Ventanas con Graficador de Fractales")
 
-        # Etiqueta
-        self.etiqueta = tk.Label(master, text="¡Bienvenido a nuestro sistema para graficar fractales!")
-        self.etiqueta.pack(pady=10)
-
-        # Lista de fractales
-        self.fractales = ["CurvaLecyC","FlechaSierpinski","Koch","Gosper","Curva de dragón"]
-
-        # Cuadro de lista desplegable para el tipo de fractal
+        self.configurar_interfaz()
+        self.fractales = ["CurvaLecyC", "FlechaSierpinski", "Koch", "Gosper", "Curva de dragón"]
         self.combobox_fractales = ttk.Combobox(master, values=self.fractales, state="readonly")
         self.combobox_fractales.pack(pady=10)
-        self.combobox_fractales.set("Seleccione un fractal")  # Texto predeterminado
-
-         # Botón Recomendaciones
+        self.combobox_fractales.set("Seleccione un fractal")
         self.boton_recomendaciones = tk.Button(master, text="Recomendaciones", command=self.mostrar_recomendaciones)
         self.boton_recomendaciones.pack(pady=5)
-
-        # Campo de entrada para el número de iteraciones
-        self.etiqueta_iteraciones = tk.Label(master, text="Número de Iteraciones:")
-        self.etiqueta_iteraciones.pack()
-        self.entry_iteraciones = tk.Entry(master)
-        self.entry_iteraciones.pack(pady=10)
-
-        # Botón Dibujar
+        self.entry_iteraciones = self.crear_campo_iteraciones(master)
         self.boton_venta = tk.Button(master, text="Dibujar", command=self.realizar_venta)
         self.boton_venta.pack(pady=20)
-
-        # Botón para salir
         self.boton_salir = tk.Button(master, text="Salir", command=self.salir_programa)
         self.boton_salir.pack(pady=10)
-
-        # Variable para almacenar el fractal seleccionado
         self.fractal_seleccionado = tk.StringVar()
-        # Ventana Turtle
         self.turtle_window = turtle.Screen()
-        
+
+    def configurar_interfaz(self):
+        self.etiqueta = tk.Label(self.master, text="¡Bienvenido a nuestro sistema para graficar fractales!")
+        self.etiqueta.pack(pady=10)
+
+    def crear_campo_iteraciones(self, master):
+        etiqueta_iteraciones = tk.Label(master, text="Número de Iteraciones:")
+        etiqueta_iteraciones.pack()
+        entry_iteraciones = tk.Entry(master)
+        entry_iteraciones.pack(pady=10)
+        return entry_iteraciones
+
     def salir_programa(self):
-        # Cierra ambas ventanas y termina el programa
         self.master.destroy()
         self.turtle_window.bye()
         exit()
@@ -63,9 +53,9 @@ class SistemaVentanas:
         if fractal_elegido and fractal_elegido != "Seleccione un fractal" and num_iteraciones is not None:
             self.fractal_seleccionado.set(fractal_elegido)
             graficador = GraficadorFractales(self.master, self)
-            self.boton_venta.config(state=tk.DISABLED)  # Desactivar el botón
+            self.boton_venta.config(state=tk.DISABLED)
             graficador.graficar_fractal(fractal_elegido, num_iteraciones)
-            self.boton_venta.config(state=tk.NORMAL)   # Reactivar el botón después del ciclo
+            self.boton_venta.config(state=tk.NORMAL)
         else:
             print("Por favor, seleccione un tipo de fractal válido y/o ingrese un número de iteraciones válido.")
 
@@ -80,7 +70,7 @@ class SistemaVentanas:
         except ValueError:
             messagebox.showerror("Error", "Por favor, ingrese un número de iteraciones válido (entero positivo).")
             return None
-    
+
     def mostrar_recomendaciones(self):
         fractal_elegido = self.combobox_fractales.get()
         if fractal_elegido and fractal_elegido != "Seleccione un fractal":
@@ -91,16 +81,15 @@ class SistemaVentanas:
 
     def obtener_recomendacion(self, tipo_fractal):
         recomendacion = ""
-        if tipo_fractal == "CurvaLecyC":
-            recomendacion = "Se recomienda usar 8 iteraciones"
-        elif tipo_fractal == "FlechaSierpinski":
-            recomendacion = "Se recomienda usar 4 iteraciones"
-        elif tipo_fractal == "Koch":
-            recomendacion = "Se recomienda usar 3 iteraciones"
-        elif tipo_fractal == "Gosper":
-            recomendacion = "Se recomienda usar 4 iteraciones"
-        elif tipo_fractal == "Curva de dragón":
-            recomendacion = "Se recomienda usar 7 iteraciones"
+        recomendaciones = {
+            "CurvaLecyC": "Se recomienda usar 8 iteraciones",
+            "FlechaSierpinski": "Se recomienda usar 4 iteraciones",
+            "Koch": "Se recomienda usar 3 iteraciones",
+            "Gosper": "Se recomienda usar 4 iteraciones",
+            "Curva de dragón": "Se recomienda usar 7 iteraciones"
+        }
+        if tipo_fractal in recomendaciones:
+            recomendacion = recomendaciones[tipo_fractal]
         return recomendacion
 
 
@@ -110,102 +99,56 @@ class GraficadorFractales:
         self.sistema_ventanas = sistema_ventanas
 
     def graficar_fractal(self, tipo_fractal, num_iteraciones):
+        configuracion_fractal = self.configurar_fractal(tipo_fractal, num_iteraciones)
+
         while True:
-            # Cambiar el fondo de la ventana de Turtle para cada fractal
-            if tipo_fractal == "CurvaLecyC":
-                turtle.bgcolor("lightblue")
-            elif tipo_fractal == "FlechaSierpinski":
-                turtle.bgcolor("lightgreen")
-            elif tipo_fractal == "Koch":
-                turtle.bgcolor("lightcoral")
-            elif tipo_fractal == "Gosper":
-                turtle.bgcolor("hotpink")
-            elif tipo_fractal == "Curva de dragón":
-                turtle.bgcolor("khaki")
+            turtle.bgcolor(configuracion_fractal["bgcolor"])
+            configuracion_fractal["constructor"].construir_y_dibujar()
 
-            if tipo_fractal == "CurvaLecyC":
-                curva_levy = CurvaLecyC(num_iteraciones, 10)
-                constructor_curva_levy = ConstructorFiguras(curva_levy)
-
-                # Configuración gráfica adicional para CurvaLecyC
-                turtle.pencolor("blue")
-                turtle.pensize(2)
-                turtle.penup()
-                turtle.goto(-100,0)
-                turtle.pendown()
-
-                constructor_curva_levy.construir_y_dibujar()
-
-            elif tipo_fractal == "FlechaSierpinski":
-                flecha_sierpinski = FlechaSierpinski(num_iteraciones, 10)
-                constructor_flecha_sierpinski = ConstructorFiguras(flecha_sierpinski)
-
-                # Configuración gráfica adicional para FlechaSierpinski
-                turtle.pencolor("green")
-                turtle.pensize(2)
-                turtle.penup()
-                turtle.goto(100,-100)
-                turtle.pendown()
-                turtle.left(180)
-
-                constructor_flecha_sierpinski.construir_y_dibujar()
-
-            elif tipo_fractal == "Koch":
-                koch = Koch(num_iteraciones, 12)
-                constructor_koch = ConstructorFiguras(koch)
-
-                # Configuración gráfica adicional para Koch
-                turtle.pencolor("red")
-                turtle.pensize(2)
-                turtle.penup()
-                turtle.goto(100,0)
-                turtle.pendown()
-                turtle.left(180)
-
-                constructor_koch.construir_y_dibujar()
-
-            elif tipo_fractal == "Gosper":
-                gosper = Gosper(num_iteraciones, 10)
-                constructor_gosper = ConstructorFiguras(gosper)
-
-                # Configuración gráfica adicional para Gosper
-                turtle.pencolor("purple")
-                turtle.pensize(2)
-                turtle.penup()
-                turtle.goto(-100,0)
-                turtle.pendown()
-
-                constructor_gosper.construir_y_dibujar()
-
-            elif tipo_fractal == "Curva de dragón":
-                dragon_curve = DragonCurve(num_iteraciones, 10)
-                constructor_dragon_curve = ConstructorFiguras(dragon_curve)
-
-                # Configuración gráfica adicional para Curva de dragón
-                turtle.pencolor("orange")
-                turtle.pensize(2)
-
-                constructor_dragon_curve.construir_y_dibujar()
-
-            # Espera 3 segundos
             time.sleep(3)
-            
             respuesta = messagebox.askyesno("Continuar", "¿Desea graficar otro fractal?")
-            
+
             if respuesta:
-                # Restablece la posición de la tortuga al centro
                 turtle.reset()
-                turtle.penup()
-                turtle.goto(0, 0)
-                turtle.pendown()
-                # Borra lo graficado en la ventana Turtle
                 turtle.clear()
                 return
             else:
-                # Cierra ambas ventanas
                 self.master.destroy()
                 self.sistema_ventanas.turtle_window.bye()
                 return
+
+    def configurar_fractal(self, tipo_fractal, num_iteraciones):
+        colores = {
+            "CurvaLecyC": {"bgcolor": "lightblue", "pencolor": "blue", "penup_pos": (-100, 0)},
+            "FlechaSierpinski": {"bgcolor": "lightgreen", "pencolor": "green", "penup_pos": (100, -100)},
+            "Koch": {"bgcolor": "lightcoral", "pencolor": "red", "penup_pos": (100, 0)},
+            "Gosper": {"bgcolor": "hotpink", "pencolor": "purple", "penup_pos": (-100, 0)},
+            "Curva de dragón": {"bgcolor": "khaki", "pencolor": "orange", "penup_pos": (0, 0)},
+        }
+
+        turtle.bgcolor(colores[tipo_fractal]["bgcolor"])
+        turtle.pencolor(colores[tipo_fractal]["pencolor"])
+        turtle.pensize(2)
+        turtle.penup()
+        turtle.goto(colores[tipo_fractal]["penup_pos"])
+        turtle.pendown()
+
+        if tipo_fractal == "CurvaLecyC":
+            fractal = CurvaLecyC(num_iteraciones, 10)
+        elif tipo_fractal == "FlechaSierpinski":
+            fractal = FlechaSierpinski(num_iteraciones, 10)
+            turtle.left(180)  # Ajuste de orientación para FlechaSierpinski
+        elif tipo_fractal == "Koch":
+            fractal = Koch(num_iteraciones, 12)
+            turtle.left(180)  # Ajuste de orientación para Koch
+        elif tipo_fractal == "Gosper":
+            fractal = Gosper(num_iteraciones, 10)
+        elif tipo_fractal == "Curva de dragón":
+            fractal = DragonCurve(num_iteraciones, 10)
+
+        constructor_fractal = ConstructorFiguras(fractal)
+        return {"bgcolor": colores[tipo_fractal]["bgcolor"], "constructor": constructor_fractal}
+
 
 def main():
     ventana = tk.Tk()
