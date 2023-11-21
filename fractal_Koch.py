@@ -1,5 +1,5 @@
 from turtle import *
-from Clases_Fractales import Fractal
+from fractal import Fractal
 
 class Koch(Fractal):
     def generar_lista(self):

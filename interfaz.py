@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk, messagebox, simpledialog
-from Clases_Fractales import *
+from fractal import *
 from fractal_LevyC import *
 from fractal_Koch import *
 from fractal_Dragon import *

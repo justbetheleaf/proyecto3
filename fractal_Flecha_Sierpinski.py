@@ -1,6 +1,6 @@
 """ Curva de punta de flecha Sierpinski """
 from turtle import *
-from Clases_Fractales import Fractal
+from fractal import Fractal
 
 class FlechaSierpinski(Fractal):
     def generar_lista(self):

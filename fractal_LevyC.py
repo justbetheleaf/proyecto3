@@ -1,7 +1,7 @@
 """ Curva de Levy C"""
 
 from turtle import *
-from Clases_Fractales import Fractal
+from fractal import Fractal
 
 class CurvaLecyC(Fractal):
     def generar_lista(self):

@@ -2,7 +2,7 @@
 
 from turtle import *
 import random
-from Clases_Fractales import Fractal
+from fractal import Fractal
 
 class DragonCurve(Fractal):
     
