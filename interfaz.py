@@ -4,10 +4,10 @@ from Clases_Fractales import *
 import turtle
 import time  
 
-class SistemaVentas:
+class SistemaVentanas:
     def __init__(self, master):
         self.master = master
-        master.title("Sistema de Ventas con Graficador de Fractales")
+        master.title("Sistema de Ventanas con Graficador de Fractales")
 
         # Etiqueta
         self.etiqueta = tk.Label(master, text="¡Bienvenido a nuestro sistema para graficar fractales!")
@@ -99,9 +99,9 @@ class SistemaVentas:
 
 
 class GraficadorFractales:
-    def __init__(self, master, sistema_ventas):
+    def __init__(self, master, sistema_ventanas):
         self.master = master
-        self.sistema_ventas = sistema_ventas
+        self.sistema_ventanas = sistema_ventanas
 
     def graficar_fractal(self, tipo_fractal, num_iteraciones):
         while True:
@@ -181,12 +181,12 @@ class GraficadorFractales:
             else:
                 # Cierra ambas ventanas
                 self.master.destroy()
-                self.sistema_ventas.turtle_window.bye()
+                self.sistema_ventanas.turtle_window.bye()
                 return
 
 def main():
     ventana = tk.Tk()
-    app = SistemaVentas(ventana)
+    app = SistemaVentanas(ventana)
     ventana.mainloop()
 
 if __name__ == "__main__":
