@@ -4,9 +4,9 @@ import turtle
 import time
 from fractal import *
 from fractal_LevyC import *
-from fractal_Koch import *
+from fractal_Curva_Koch import *
 from fractal_Dragon import *
-from fractal_Gosper import *
+from fractal_Inspo_Gosper_Curve import *
 from fractal_Flecha_Sierpinski import *
 from constructor import *
 
@@ -16,7 +16,7 @@ class SistemaVentanas:
         master.title("Sistema de Ventanas con Graficador de Fractales")
 
         self.configurar_interfaz()
-        self.fractales = ["CurvaLecyC", "FlechaSierpinski", "Koch", "Gosper", "Curva de dragón"]
+        self.fractales = ["CurvaLecyC", "FlechaSierpinski", "Curva de Koch", "Inpiración de Gosper pero en curva", "Curva de dragón"]
         self.combobox_fractales = ttk.Combobox(master, values=self.fractales, state="readonly")
         self.combobox_fractales.pack(pady=10)
         self.combobox_fractales.set("Seleccione un fractal")
@@ -84,8 +84,8 @@ class SistemaVentanas:
         recomendaciones = {
             "CurvaLecyC": "Se recomienda usar 8 iteraciones",
             "FlechaSierpinski": "Se recomienda usar 4 iteraciones",
-            "Koch": "Se recomienda usar 3 iteraciones",
-            "Gosper": "Se recomienda usar 4 iteraciones",
+            "Curva de Koch": "Se recomienda usar 3 iteraciones",
+            "Inpiración de Gosper pero en curva": "Se recomienda usar 4 iteraciones",
             "Curva de dragón": "Se recomienda usar 7 iteraciones"
         }
         if tipo_fractal in recomendaciones:
@@ -121,8 +121,8 @@ class GraficadorFractales:
         colores = {
             "CurvaLecyC": {"bgcolor": "lightblue", "pencolor": "blue", "penup_pos": (-100, 0)},
             "FlechaSierpinski": {"bgcolor": "lightgreen", "pencolor": "green", "penup_pos": (100, -100)},
-            "Koch": {"bgcolor": "lightcoral", "pencolor": "red", "penup_pos": (100, 0)},
-            "Gosper": {"bgcolor": "hotpink", "pencolor": "purple", "penup_pos": (-100, 0)},
+            "Curva de Koch": {"bgcolor": "lightcoral", "pencolor": "red", "penup_pos": (100, 0)},
+            "Inpiración de Gosper pero en curva": {"bgcolor": "hotpink", "pencolor": "purple", "penup_pos": (-100, 0)},
             "Curva de dragón": {"bgcolor": "khaki", "pencolor": "orange", "penup_pos": (0, 0)},
         }
 
@@ -138,11 +138,11 @@ class GraficadorFractales:
         elif tipo_fractal == "FlechaSierpinski":
             fractal = FlechaSierpinski(num_iteraciones, 10)
             turtle.left(180)  # Ajuste de orientación para FlechaSierpinski
-        elif tipo_fractal == "Koch":
+        elif tipo_fractal == "Curva de Koch":
             fractal = Koch(num_iteraciones, 12)
             turtle.left(180)  # Ajuste de orientación para Koch
-        elif tipo_fractal == "Gosper":
-            fractal = Gosper(num_iteraciones, 10)
+        elif tipo_fractal == "Inpiración de Gosper pero en curva":
+            fractal = GosperInspiredCurve(num_iteraciones, 10)
         elif tipo_fractal == "Curva de dragón":
             fractal = DragonCurve(num_iteraciones, 10)
 

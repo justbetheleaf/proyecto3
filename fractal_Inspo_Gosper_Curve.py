@@ -3,7 +3,7 @@
 from turtle import *
 from fractal import Fractal
 
-class Gosper(Fractal):
+class GosperInspiredCurve(Fractal):
     def generar_lista(self):
         instrucciones = ['A']
         for _ in range(self.get_iteraciones()):
