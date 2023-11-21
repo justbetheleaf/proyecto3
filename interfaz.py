@@ -6,6 +6,7 @@ from fractal_Koch import *
 from fractal_Dragon import *
 from fractal_Gosper import *
 from fractal_Flecha_Sierpinski import *
+from constructor import *
 import turtle
 import time  
 
